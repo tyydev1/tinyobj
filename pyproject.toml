@@ -1,0 +1,9 @@
+[project]
+name = "tinyobj"
+version = "0.1.0"
+description = "A super cool data format"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "tinycolors>=0.6.0",
+]
