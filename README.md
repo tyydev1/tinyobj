@@ -1,7 +1,15 @@
-![TinyObj banner](banner/banner.png)
+<div align="center">
 
-<center>**A tiny, cool data format.**</center>
+![TinyObj banner](banner/tinyobj.png)
 
-<center>[![GitHub Repo](https://img.shields.io/badge/github-repo-blue?logo=github)](https://github.com/tyydev1/tinyobj/)</center>
+**A tiny, cool data format with syntax freedom.**
+
+[![GitHub Repo](https://img.shields.io/badge/github-repo-blue?logo=github)](https://github.com/tyydev1/tinyobj/)
+
+</div>
+
+Designed for simplicity, flexibility, and clarity.
 
 ---
+
+_README coming soon!_

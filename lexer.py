@@ -69,6 +69,11 @@ class Lexer:
 		while self.current_char is not None and self.current_char in WHITESPACE:
 			self.advance()
 	
+	def skip_comment(self) -> None:
+		"""Skip characters until the end of the line"""
+		while self.current_char is not None and self.current_char != '\n':
+			self.advance()
+	
 	def tokenize(self) -> List[Token]:
 		tokens: List[Token] = []
 		
@@ -78,9 +83,23 @@ class Lexer:
 				self.skip_whitespace()
 				continue
 			
+			# 1. Handle # comments
+			if self.current_char == '#':
+				self.skip_comment()
+				continue
+			
+			# 2. Handle // comments
+			# check if current is '/' and the next one is also '/'
+			if self.current_char == '/' and self.peek() == '/':
+				self.skip_comment()
+				continue
+
+			if self.current_char == '.' and self.peek() == '.' and self.peek(2) == '.':
+				self.skip_comment()
+				continue
+
 			# handle newlines
 			if self.current_char == '\n':
-				# TODO: What do we do here? I don't know! AAAAA
 				tokens.append(Token(NEWLINE, '\n', self.line, self.column))
 				self.advance()
 			
@@ -93,23 +112,73 @@ class Lexer:
 				tokens.append(Token(ARROW, '>', self.line, self.column))
 				self.advance()
 			
+			# handle numbers
+			elif self.current_char.isdigit() or (self.current_char == '-' and self.peek() and self.peek().isdigit()):
+				start_line = self.line
+				start_column = self.column
+				
+				number = ''
+				
+				# handle negatives
+				if self.current_char == '-':
+					number += '-'
+					self.advance()
+				
+				# read them digits
+				while self.current_char is not None and self.current_char.isdigit():
+					number += self.current_char
+					self.advance()
+				
+				# handle decimal dots for floating (i'm floating!)
+				if self.current_char == '.' and self.peek() and self.peek().isdigit():
+					number += '.'
+					self.advance()
+					while self.current_char is not None and self.current_char.isdigit():
+						number += self.current_char
+						self.advance()
+				
+				tokens.append(Token(NUMBER, number, start_line, start_column))
+			
+
 			elif self.current_char == '-':
 				tokens.append(Token(DASH, '-', self.line, self.column))
 				self.advance()
 			
 			# handle strings
 			elif self.current_char == '"':
-				# TODO: This is complex, I hate strings!
-				... # to claude, i prefer ellipsis for unfinished stuff,
-					# and i use `pass` for stuff that actually has nothing
-					# e.g. custom errors
-				# oh, and please use tabs, i'm very annoyed to hold backspace
-				# thanks
-			
-			# handle numbers
-			elif self.current_char.isdigit():
-				# TODO: Read the full number
-				...
+				start_line: int = self.line
+				start_column: int = self.column
+				self.advance()
+				
+				string_value: List[str] = []
+
+				while self.current_char is not None and self.current_char != '"':
+					# is ts escape?
+					if self.current_char == '\\':
+						# oh boy it's escaping time
+						self.advance()
+						if self.current_char == 'n':
+							string_value.append('\n')
+						elif self.current_char == 't':
+							string_value.append('\t')
+						elif self.current_char == '"':
+							string_value.append('"')
+						elif self.current_char == '\\':
+							string_value.append('\\')
+						else: # unknown escape
+							string_value.append(self.current_char)
+						self.advance()
+					else:
+						string_value.append(self.current_char)
+						self.advance()
+				
+				# oh boy errors!
+				if self.current_char != '"':
+					raise SyntaxError(f"Unterminated string (you didn't close the string) at {start_line}:{start_column}")
+
+				self.advance()
+				tokens.append(Token(STRING, "".join(string_value), start_line, start_column))
+
 			
 			# handle identifiers and keywords (true, false, nothing)
 			elif self.current_char.isalpha() or self.current_char in '_$':
@@ -121,7 +190,7 @@ class Lexer:
 				identifier = ''
 				while self.current_char is not None and (
 					self.current_char.isalnum() or
-					self.current_char in '._$'
+					self.current_char in '._$+'
 				):
 					identifier += self.current_char
 					self.advance()
@@ -143,7 +212,7 @@ class Lexer:
 
 def main():
 	import pprint
-	lexer = Lexer(">name John\n\t*User")
+	lexer = Lexer("*Temps >readings - -5 - 10 - -3.14")
 	pprint.pprint(lexer.tokenize())
 
 if __name__ == "__main__":

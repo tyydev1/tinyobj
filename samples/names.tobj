@@ -1,0 +1,4 @@
+*$
+> key ctrl+alt+c
+> action "Suspend Machine"
+> timeout 10

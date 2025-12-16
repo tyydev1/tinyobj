@@ -3,7 +3,7 @@ name = "tinyobj"
 version = "0.1.0"
 description = "A super cool data format"
 readme = "README.md"
-requires-python = ">=3.13"
+requires-python = ">=3.14"
 dependencies = [
     "tinycolors>=0.6.0",
 ]
