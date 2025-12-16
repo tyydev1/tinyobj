@@ -2,8 +2,9 @@
 The TinyObj Interpreter
 """
 
-from typing import Dict, Any, List
-from parser import ASTNode, ObjectNode, PropertyNode
+from typing import Dict, Any, List, Optional
+from tobj.errors import InterpreterError
+from tobj.parser import ASTNode, ObjectNode, PropertyNode
 
 class Interpreter:
 	"""Converts AST to Python dicts/lists"""
@@ -11,7 +12,7 @@ class Interpreter:
 	def __init__(self, ast: List[ASTNode]) -> None:
 		self.ast: List[ASTNode] = ast
 		self.root: Dict[str, Any] = {}
-		self.current_object_path: str = None
+		self.current_object_path: Optional[str] = None
 	
 	def interpret(self) -> Dict[str, Any]:
 		"""Main method - returns the final dict"""
@@ -39,7 +40,11 @@ class Interpreter:
 		"""Handle >key value"""
 		
 		if self.current_object_path is None:
-			raise Exception("Property without object context")
+			raise InterpreterError(
+				node.pos_start,
+				node.pos_end,
+				"Property without object context"
+			)
 		
 		parts: List[str] = self.current_object_path.split('.')
 		current: Dict = self.root
@@ -49,9 +54,9 @@ class Interpreter:
 		current[node.key] = node.value
 
 def main():
-	from lexer import Lexer
-	from parser import Parser
-	from interpreter import Interpreter
+	from tobj.lexer import Lexer
+	from tobj.parser import Parser
+	from tobj.interpreter import Interpreter
 	import pprint
 	import json
 	
@@ -60,6 +65,7 @@ def main():
 >name Alice
 >age 30
 >active true
+>pet nothing
 
 *User.profile
 >bio "Hello World"

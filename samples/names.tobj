@@ -2,3 +2,54 @@
 > key ctrl+alt+c
 > action "Suspend Machine"
 > timeout 10
+
+*User
+    > name      Alice
+    > age       30
+    > active    true
+    > pet       nothing
+
+*User.profile
+    > bio       "Hello World"
+    > score     9001
+
+*User.tags
+    > favorites
+        - python
+        - rust
+        - C++
+
+// ------------------------------------ //
+// IDEA: DESCRIPTIVE TOBJ
+// ------------------------------------ //
+# Normal TinyObj (Symbolic):
+#   *User
+#       > name    Alice
+#       > age     30
+#       > active  true
+#       > pet     nothing
+#
+#   *User.profile
+#       > bio    "Hello World"
+#       > score  9001
+#
+#   *User.tags
+#       > favorites
+#           - python
+#           - rust
+#           - C++
+#
+# Descriptive TinyObj:
+#   obj User:
+#       prop name = "Alice";
+#       prop age = 30;
+#       prop active = true;
+#       prop pet = nothing;
+#   
+#   obj User.profile:
+#       prop bio = "Hello World";
+#       prop score = 9001;
+#
+#   obj User.tags:
+#       prop favorites = ["python", "rust", "C++"];
+#

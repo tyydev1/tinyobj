@@ -3,9 +3,9 @@ TinyObj v0.1.0,
 a tiny object format for freedom.
 """
 from typing import Optional, Dict, Any, List
-from interpreter import Interpreter
-from parser import Parser
-from lexer import Lexer
+from tobj.interpreter import Interpreter
+from tobj.parser import Parser
+from tobj.lexer import Lexer
 
 def load(string_code: Optional[str] = None, 
 		  string_path: Optional[str] = None) -> Optional[Dict[str, Any]]:
@@ -22,6 +22,8 @@ def load(string_code: Optional[str] = None,
 		with open(string_path, 'r') as f:
 			content = "".join(f.readlines())
 			return Interpreter(Parser(Lexer(content).tokenize()).parse()).interpret()
+	
+	return None
 
 def objectify(data: Dict[str, Any]) -> str:
 	"""

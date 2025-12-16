@@ -1,7 +1,8 @@
 """
 Lexer for TOBJ
 """
-from typing import Final, List, Any, Optional, Tuple
+from typing import List, Optional, Tuple
+from .errors import Position, LexerError
 
 STAR: str = "STAR"           # *
 ARROW: str = "ARROW"         # >
@@ -14,7 +15,7 @@ NOTHING: str = "NOTHING"     # nothing
 NEWLINE: str = "NEWLINE"     # \n
 EOF: str = "EOF"             # end of file
 
-WHITESPACE: Tuple[str] = (
+WHITESPACE: Tuple[str, ...] = (
 	' ', '\t', '\r', '\f', 
 	'\xa0', '\v', '\u1680', 
 	'\u2002', '\u2003', '\u2009', 
@@ -25,44 +26,35 @@ WHITESPACE: Tuple[str] = (
 
 class Token:
 	"""A single TinyObj token"""
-	def __init__(self, type, value, line, column):
+	def __init__(self, type: str, value: Optional[str], pos_start: Position, pos_end: Position) -> None:
 		self.type = type
 		self.value = value
-		self.line = line
-		self.column = column
+		self.pos_start = pos_start
+		self.pos_end = pos_end
 
 	def __repr__(self) -> str:
-		return f"Token(type={self.type}, value={self.value!r}, {self.line}:{self.column})"
+		return f"Token(type={self.type}, value={self.value!r}, {self.pos_start.ln}:{self.pos_start.col}-{self.pos_end.ln}:{self.pos_end.col})"
 
 
 class Lexer:
 	"""The TinyObj Lexer"""
 	def __init__(self, text: str) -> None:
 		self.text: str = text
-		self.pos: int = 0  # current position in text
-		self.line: int = 1
-		self.column: int = 1
-		self.current_char: str = self.text[0] if text else None
+		self.pos: Position = Position(0, 1, 1, '<placeholder>', self.text)
+		self.current_char: Optional[str] = self.text[0] if text else None
 	
 	def advance(self) -> None:
 		"""Move to the next character"""
-		if self.current_char == '\n':
-			self.line += 1
-			self.column = 1 # reset column
-		else:
-			self.column += 1
-
-		self.pos += 1
-
+		self.pos.advance(self.current_char)
 		self.current_char = self.peek(0)
 
 	
-	def peek(self, offset: int = 1) -> Optional[str]:
+	def peek(self, offset: int = 1) -> str:
 		"""Look ahead at the next character without advancing"""
-		peek_pos: int = self.pos + offset
+		peek_pos: int = self.pos.idx + offset
 		if peek_pos < len(self.text):
 			return self.text[peek_pos]
-		return None
+		return "" # return an empty string so we can check .isdigit() later
 	
 	def skip_whitespace(self) -> None:
 		"""Skip spaces and tabs (but NOT newlines!)"""
@@ -78,6 +70,7 @@ class Lexer:
 		tokens: List[Token] = []
 		
 		while self.current_char is not None:
+			start_pos: Position = self.pos.copy()
 			# skip whitespace
 			if self.current_char in WHITESPACE:
 				self.skip_whitespace()
@@ -95,30 +88,31 @@ class Lexer:
 				continue
 
 			if self.current_char == '.' and self.peek() == '.' and self.peek(2) == '.':
-				self.skip_comment()
+				# notice how i don't skip comment here - the ellipsis gets ignored
+				# but the line isn't.
 				continue
 
 			# handle newlines
 			if self.current_char == '\n':
-				tokens.append(Token(NEWLINE, '\n', self.line, self.column))
 				self.advance()
+				pos_end = self.pos
+				tokens.append(Token(NEWLINE, '\n', start_pos, pos_end))
 			
 			# handle single tokens by giving them a girlfriend
 			elif self.current_char == '*':
-				tokens.append(Token(STAR, '*', self.line, self.column))
 				self.advance()
+				pos_end = self.pos				
+				tokens.append(Token(STAR, '*', start_pos, pos_end))
 			
 			elif self.current_char == '>':
-				tokens.append(Token(ARROW, '>', self.line, self.column))
 				self.advance()
+				pos_end = self.pos		
+				tokens.append(Token(ARROW, '>', start_pos, pos_end))
 			
 			# handle numbers
 			elif self.current_char.isdigit() or (self.current_char == '-' and self.peek() and self.peek().isdigit()):
-				start_line = self.line
-				start_column = self.column
-				
 				number = ''
-				
+
 				# handle negatives
 				if self.current_char == '-':
 					number += '-'
@@ -137,17 +131,17 @@ class Lexer:
 						number += self.current_char
 						self.advance()
 				
-				tokens.append(Token(NUMBER, number, start_line, start_column))
+				tokens.append(Token(NUMBER, number, start_pos, self.pos))
 			
 
 			elif self.current_char == '-':
-				tokens.append(Token(DASH, '-', self.line, self.column))
+				
 				self.advance()
+				pos_end = self.pos				
+				tokens.append(Token(DASH, '-', start_pos, pos_end))
 			
 			# handle strings
 			elif self.current_char == '"':
-				start_line: int = self.line
-				start_column: int = self.column
 				self.advance()
 				
 				string_value: List[str] = []
@@ -174,18 +168,17 @@ class Lexer:
 				
 				# oh boy errors!
 				if self.current_char != '"':
-					raise SyntaxError(f"Unterminated string (you didn't close the string) at {start_line}:{start_column}")
+					# raise SyntaxError(f"Unterminated string (you didn't close the string) at {start_line}:{start_column}")
+					raise LexerError(start_pos, self.pos, "Unterminated string (unclosed string)")
 
 				self.advance()
-				tokens.append(Token(STRING, "".join(string_value), start_line, start_column))
+				tokens.append(Token(STRING, "".join(string_value), start_pos, self.pos))
 
 			
 			# handle identifiers and keywords (true, false, nothing)
 			elif self.current_char.isalpha() or self.current_char in '_$':
 				# save position for good errors (im looking at you C++)
-				start_line = self.line
-				start_column = self.column
-				
+	
 				# we collect the tasty characters
 				identifier = ''
 				while self.current_char is not None and (
@@ -197,17 +190,20 @@ class Lexer:
 				
 				# check if it's a keyword
 				if identifier == 'true' or identifier == 'false':
-					tokens.append(Token(BOOLEAN, identifier, start_line, start_column))
+					tokens.append(Token(BOOLEAN, identifier, start_pos, self.pos))
 				elif identifier == 'nothing':
-					tokens.append(Token(NOTHING, identifier, start_line, start_column))
+					tokens.append(Token(NOTHING, identifier, start_pos, self.pos))
 				else:
-					tokens.append(Token(IDENTIFIER, identifier, start_line, start_column))
+					tokens.append(Token(IDENTIFIER, identifier, start_pos, self.pos))
 			
 			else:
 				# lexer doesn't know what the hell this is
-				raise SyntaxError(f"Unexpected character '{self.current_char}' at {self.line}:{self.column}")
-		
-		tokens.append(Token(EOF, None, self.line, self.column))
+				# raise SyntaxError(f"Unexpected character '{self.current_char}' at {self.line}:{self.column}")
+				bad_char_pos: Position = self.pos.copy()
+				bad_char: str = self.current_char
+				self.advance()
+				raise LexerError(bad_char_pos, self.pos, f"Unexpected character '{bad_char}'")
+		tokens.append(Token(EOF, None, self.pos, self.pos)) # We don't need the position of EOF.
 		return tokens
 
 def main():

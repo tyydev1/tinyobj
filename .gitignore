@@ -12,3 +12,5 @@ uv.lock
 
 *.egg-info/
 *.egg-info
+
+.mypy_cache/
