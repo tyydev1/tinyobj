@@ -2,7 +2,7 @@
 Lexer for TOBJ
 """
 from typing import List, Optional, Tuple
-from .errors import Position, LexerError
+from tobj.errors import Position, LexerError
 
 STAR: str = "STAR"           # *
 ARROW: str = "ARROW"         # >
@@ -38,9 +38,9 @@ class Token:
 
 class Lexer:
 	"""The TinyObj Lexer"""
-	def __init__(self, text: str) -> None:
+	def __init__(self, text: str, filename: str = '<string>') -> None:
 		self.text: str = text
-		self.pos: Position = Position(0, 1, 1, '<placeholder>', self.text)
+		self.pos: Position = Position(0, 1, 1, filename, self.text)
 		self.current_char: Optional[str] = self.text[0] if text else None
 	
 	def advance(self) -> None:
@@ -49,12 +49,12 @@ class Lexer:
 		self.current_char = self.peek(0)
 
 	
-	def peek(self, offset: int = 1) -> str:
+	def peek(self, offset: int = 1) -> Optional[str]:
 		"""Look ahead at the next character without advancing"""
 		peek_pos: int = self.pos.idx + offset
 		if peek_pos < len(self.text):
 			return self.text[peek_pos]
-		return "" # return an empty string so we can check .isdigit() later
+		return None
 	
 	def skip_whitespace(self) -> None:
 		"""Skip spaces and tabs (but NOT newlines!)"""
@@ -71,6 +71,7 @@ class Lexer:
 		
 		while self.current_char is not None:
 			start_pos: Position = self.pos.copy()
+
 			# skip whitespace
 			if self.current_char in WHITESPACE:
 				self.skip_whitespace()
@@ -110,7 +111,7 @@ class Lexer:
 				tokens.append(Token(ARROW, '>', start_pos, pos_end))
 			
 			# handle numbers
-			elif self.current_char.isdigit() or (self.current_char == '-' and self.peek() and self.peek().isdigit()):
+			elif self.current_char.isdigit() or (self.current_char == '-' and self.peek() and (next_char := self.peek()) and next_char.isdigit()):
 				number = ''
 
 				# handle negatives
@@ -124,7 +125,7 @@ class Lexer:
 					self.advance()
 				
 				# handle decimal dots for floating (i'm floating!)
-				if self.current_char == '.' and self.peek() and self.peek().isdigit():
+				if self.current_char == '.' and self.peek() and next_char and next_char.isdigit():
 					number += '.'
 					self.advance()
 					while self.current_char is not None and self.current_char.isdigit():

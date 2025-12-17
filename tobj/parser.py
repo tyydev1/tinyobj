@@ -6,7 +6,7 @@ The TinyObj Parser
 # Errors
 # -------------------
 
-from .errors import Position, ParserError
+from tobj.errors import Position, ParserError
 
 # -------------------
 # Nodes
@@ -42,7 +42,7 @@ class PropertyNode(ASTNode):
 # -----------------
 
 from typing import List, Optional, Tuple
-from .lexer import Token, STAR, ARROW, DASH, IDENTIFIER, STRING, NUMBER, BOOLEAN, NOTHING, NEWLINE, EOF
+from tobj.lexer import Token, STAR, ARROW, DASH, IDENTIFIER, STRING, NUMBER, BOOLEAN, NOTHING, NEWLINE, EOF
 
 class Parser:
 	"""The TinyObj Parser"""
@@ -260,7 +260,7 @@ class Parser:
 		return nodes
 
 def main():
-	from .lexer import Lexer
+	from tobj.lexer import Lexer
 	import pprint
 	
 	tobj_code = """
