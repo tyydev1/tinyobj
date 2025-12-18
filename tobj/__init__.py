@@ -1,5 +1,5 @@
 """
-TinyObj v0.1.0,
+TinyObj v0.2.1,
 a tiny object format for freedom.
 """
 from tobj.interpreter import Interpreter

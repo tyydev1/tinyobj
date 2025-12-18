@@ -86,6 +86,10 @@ TOBJ is designed to be simple and human-readable. Here’s a quick overview of i
 - **Strings**: Wrap strings in quotes (e.g., `> bio "Hello World"`).
 - **Special Keywords**: Use `true`, `false`, and `nothing` for booleans and null values.
 
+For more information, RTFM: [On-Repo Docs](docs/build/html/index.html)
+
+_Online repos coming soon!_
+
 Here's a comprehensive example:
 
 ```tobj
