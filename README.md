@@ -5,9 +5,11 @@
 **A tiny, cool data format with syntax freedom.**
 
 [![GitHub Repo](https://img.shields.io/badge/github-repo-blue?logo=github)](https://github.com/tyydev1/tinyobj/)
+[![Documentation Status](https://img.shields.io/readthedocs/tobj?style=flat-square)](https://tobj.readthedocs.io/en/latest/)
 ![Build passing](https://img.shields.io/badge/build-passing-brightgreen)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue)](LICENSE)
 ![Python](https://img.shields.io/badge/python-3.8+-blue)
+
 [![PyPI](https://img.shields.io/pypi/v/tobj)](https://pypi.org/project/tobj)
 ![Platform](https://img.shields.io/badge/platform-windows%20%7C%20macOS%20%7C%20linux-blue)
 ![Last Commit](https://img.shields.io/github/last-commit/tyydev1/tinyobj)
@@ -86,9 +88,7 @@ TOBJ is designed to be simple and human-readable. Here’s a quick overview of i
 - **Strings**: Wrap strings in quotes (e.g., `> bio "Hello World"`).
 - **Special Keywords**: Use `true`, `false`, and `nothing` for booleans and null values.
 
-For more information, RTFM: [On-Repo Docs](docs/build/html/index.html)
-
-_Online repos coming soon!_
+For more information, [RTFM on ReadTheDocs](https://tobj.readthedocs.io/en/latest/).
 
 Here's a comprehensive example:
 
@@ -142,3 +142,7 @@ Contributions are welcome! Fork the repo, create a branch, and craft your great 
 ## License
 
 This project is licensed under the MIT License - see [LICENSE](LICENSE) (or the LICENSE badge) for details.
+
+## Documentation
+
+In case you missed it, [here's the documentation](https://tobj.readthedocs.io/en/latest/), and the [GitHub repo](https://github.com/tyydev1/tinyobj).
