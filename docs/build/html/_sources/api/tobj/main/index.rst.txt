@@ -5,7 +5,7 @@ tobj.main
 
 .. autoapi-nested-parse::
 
-   TinyObj v0.1.0,
+   TinyObj v0.2.2,
    a tiny object format for freedom.
 
    This module provides the public API for the TinyObj format, including functions
@@ -18,10 +18,6 @@ Functions
 
 .. autoapisummary::
 
-   tobj.main.loads
-   tobj.main.load
-   tobj.main.dumps
-   tobj.main.dump
    tobj.main.test_case
    tobj.main.test_case_file
    tobj.main.test_roundtrip
@@ -30,58 +26,6 @@ Functions
 
 Module Contents
 ---------------
-
-.. py:function:: loads(string_code: str, *, filename: str = '<string>') -> Optional[Dict[str, Any]]
-
-   Parse TOBJ from a string.
-
-   The primary entry point for deserializing TinyObj code. It chains the
-   Lexer, Parser, and Interpreter to convert the source string into a
-   Python dictionary.
-
-   :param string_code: TOBJ source code.
-   :type string_code: str
-   :param filename: Name to show in error messages. Defaults to "<string>".
-   :type filename: str
-   :return: Parsed Python dict, or None if the input string is empty.
-   :rtype: Optional[Dict[str, Any]]
-   :raises LexerError: An error encountered during the tokenization phase.
-   :raises ParserError: An error encountered during the AST construction phase.
-   :raises InterpreterError: An error encountered during the final dict construction phase.
-
-
-.. py:function:: load(file) -> Optional[Dict[str, Any]]
-
-   Parse TinyObj from a file object.
-
-   Reads the entire content of a file-like object and passes it to `loads`.
-
-   :param file: File-like object to read from (must have a `.read()` method).
-   :return: Parsed Python dict.
-   :rtype: Optional[Dict[str, Any]]
-
-
-.. py:function:: dumps(data: Dict[str, Any]) -> str
-
-   Converts a Python dictionary into a TinyObj string format.
-
-   This function recursively serializes nested dictionaries and lists into
-   the object (*), property (>), and list (-) format of TinyObj.
-
-   :param  The Python dictionary to serialize.
-   :type  Dict[str, Any]
-   :return: The resulting TinyObj source code string.
-   :rtype: str
-
-
-.. py:function:: dump(data: Dict[str, Any], file) -> None
-
-   Converts a Python dictionary to TinyObj format and writes it to a file object.
-
-   :param  The Python dictionary to dump.
-   :type data: Dict[str, Any]
-   :param file: File-like object to write the resulting TinyObj string to.
-
 
 .. py:function:: test_case(name: str, code: str) -> None
 
