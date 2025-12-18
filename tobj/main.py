@@ -1,5 +1,5 @@
 """
-TinyObj v0.1.0,
+TinyObj v0.2.2,
 a tiny object format for freedom.
 
 This module provides the public API for the TinyObj format, including functions
