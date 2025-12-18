@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "tobj"
-version = "0.2.1"
+version = "0.2.2"
 description = "A cool, tiny, minimal data format"
 readme = "README.md"
 requires-python = ">=3.8"
@@ -25,10 +25,16 @@ classifiers = [
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
 ]
-dependencies = ["tinycolors>=0.6.0"]
 
 [project.optional-dependencies]
-dev = ["pytest>=7.0.0", "black>=23.0.0", "mypy>=1.0.0"]
+dev = [
+    "pytest>=7.0.0",
+    "black>=23.0.0",
+    "mypy>=1.0.0",
+    "tinycolors>=0.6.0",
+    "sphinx>=5.0.0",
+    "sphinx-autoapi>=6.0.0",
+]
 
 [project.urls]
 Homepage = "https://github.com/tyydev1/tinyobj"
@@ -36,7 +42,7 @@ Repository = "https://github.com/tyydev1/tinyobj"
 Issues = "https://github.com/tyydev1/tinyobj/issues"
 
 [tool.setuptools]
-packages = ["tobj"]
+packages = ["tobj", "banner"]
 
 [tool.black]
 line-length = 88
