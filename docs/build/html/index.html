@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="./">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>TinyObj documentation &#8212; TinyObj 0.2.1 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=5ecbeea2" />
+    <link rel="stylesheet" type="text/css" href="_static/basic.css?v=b08954a9" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css?v=27fed22d" />
+    <link rel="stylesheet" type="text/css" href="_static/graphviz.css?v=4ae1632d" />
+    <script src="_static/documentation_options.js?v=37f418d5"></script>
+    <script src="_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Tutorial: Getting Started with TinyObj" href="tutorial.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+
+  
+  
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="tinyobj-documentation">
+<h1>TinyObj documentation<a class="headerlink" href="#tinyobj-documentation" title="Link to this heading">¶</a></h1>
+<div class="toctree-wrapper compound">
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="tutorial.html">Tutorial: Getting Started with TinyObj</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="tutorial.html#syntax-basics">Syntax Basics</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="tutorial.html#basic-comments">Basic comments</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tutorial.html#basic-object">Basic Object</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tutorial.html#nested-objects">Nested Objects</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tutorial.html#lists-and-collections">Lists and Collections</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial.html#using-the-python-api">Using the Python API</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="tutorial.html#loading-tinyobj">Loading TinyObj</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tutorial.html#serializing-to-tinyobj">Serializing to TinyObj</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial.html#handling-errors">Handling Errors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial.html#common-data-types">Common Data Types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial.html#next-steps">Next Steps</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api/index.html">API Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api/tobj/index.html">tobj</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api/tobj/index.html#submodules">Submodules</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/tobj/errors/index.html">tobj.errors</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/tobj/interpreter/index.html">tobj.interpreter</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/tobj/lexer/index.html">tobj.lexer</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/tobj/main/index.html">tobj.main</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/tobj/parser/index.html">tobj.parser</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<p><strong>TinyObj</strong> is a minimal, human-readable object notation designed for configuration,
+data exchange, and structured text. It uses simple sigils to define objects (<code class="docutils literal notranslate"><span class="pre">*</span></code>),
+properties (<code class="docutils literal notranslate"><span class="pre">&gt;</span></code>), and lists (<code class="docutils literal notranslate"><span class="pre">-</span></code>), making it easy to write by hand and parse
+programmatically.</p>
+<div class="highlight-tobj notranslate"><div class="highlight"><pre><span></span>*User
+  &gt; name    &quot;Alice&quot;
+  &gt; age     30
+  &gt; tags
+     - python
+     - rust
+
+*User.profile
+  &gt; active    true
+  &gt; score     9001
+</pre></div>
+</div>
+<p>Key features:</p>
+<ul class="simple">
+<li><p><strong>Hierarchical objects</strong> via dot-separated paths (e.g., <code class="docutils literal notranslate"><span class="pre">*User.profile</span></code>)</p></li>
+<li><p><strong>Typed values</strong>: strings, numbers, booleans, <code class="docutils literal notranslate"><span class="pre">nothing</span></code> (null), and lists</p></li>
+<li><p><strong>Clean, indentation-free syntax</strong></p></li>
+<li><p><strong>Built-in error reporting</strong> with source positions and visual highlights</p></li>
+<li><p><strong>Bi-directional</strong>: parse to Python dict, serialize back to TinyObj</p></li>
+</ul>
+<p>This documentation includes:</p>
+<ul class="simple">
+<li><p>A <a class="reference internal" href="tutorial.html"><span class="doc">tutorial</span></a> for getting started</p></li>
+<li><p>A full <span class="xref std std-doc">api/tobj</span> reference for developers</p></li>
+<li><p>Examples and best practices for real-world usage</p></li>
+</ul>
+<p>Get started by installing TinyObj:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>tobj
+</pre></div>
+</div>
+<p>Then use it in Python:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">tobj</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">tobj</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="s2">&quot;*Config &gt;debug true&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>  <span class="c1"># {&#39;Config&#39;: {&#39;debug&#39;: True}}</span>
+</pre></div>
+</div>
+<p>Check out the TOBJ repository on <a class="reference external" href="https://github.com/tyydev1/tinyobj">GitHub</a> for source code, examples, and more information.
+It’s also online on PyPI: <a class="reference external" href="https://pypi.org/project/tobj/">https://pypi.org/project/tobj/</a>.</p>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="#">TinyObj</a></h1>
+
+
+
+
+
+
+
+
+
+<search id="searchbox" style="display: none" role="search">
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Search"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script><h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="tutorial.html">Tutorial: Getting Started with TinyObj</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/index.html">API Reference</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="#">Documentation overview</a><ul>
+      <li>Next: <a href="tutorial.html" title="next chapter">Tutorial: Getting Started with TinyObj</a></li>
+  </ul></li>
+</ul>
+</div>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &#169;2025, Razka Rizaldi.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 9.0.4</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 1.0.0</a>
+      
+      |
+      <a href="_sources/index.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

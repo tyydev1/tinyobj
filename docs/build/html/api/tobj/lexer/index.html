@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../../../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>tobj.lexer &#8212; TinyObj 0.2.1 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=5ecbeea2" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/basic.css?v=b08954a9" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/alabaster.css?v=27fed22d" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css?v=4ae1632d" />
+    <script src="../../../_static/documentation_options.js?v=37f418d5"></script>
+    <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="tobj.main" href="../main/index.html" />
+    <link rel="prev" title="tobj.interpreter" href="../interpreter/index.html" />
+   
+  <link rel="stylesheet" href="../../../_static/custom.css" type="text/css" />
+  
+
+  
+  
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="module-tobj.lexer">
+<span id="tobj-lexer"></span><h1>tobj.lexer<a class="headerlink" href="#module-tobj.lexer" title="Link to this heading">¶</a></h1>
+<p>Lexer for TOBJ</p>
+<p>This module contains the Lexer responsible for converting TinyObj source code
+into a sequence of tokens.</p>
+<section id="attributes">
+<h2>Attributes<a class="headerlink" href="#attributes" title="Link to this heading">¶</a></h2>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#tobj.lexer.STAR" title="tobj.lexer.STAR"><code class="xref py py-obj docutils literal notranslate"><span class="pre">STAR</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#tobj.lexer.ARROW" title="tobj.lexer.ARROW"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ARROW</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#tobj.lexer.DASH" title="tobj.lexer.DASH"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DASH</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#tobj.lexer.IDENTIFIER" title="tobj.lexer.IDENTIFIER"><code class="xref py py-obj docutils literal notranslate"><span class="pre">IDENTIFIER</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#tobj.lexer.STRING" title="tobj.lexer.STRING"><code class="xref py py-obj docutils literal notranslate"><span class="pre">STRING</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#tobj.lexer.NUMBER" title="tobj.lexer.NUMBER"><code class="xref py py-obj docutils literal notranslate"><span class="pre">NUMBER</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#tobj.lexer.BOOLEAN" title="tobj.lexer.BOOLEAN"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BOOLEAN</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#tobj.lexer.NOTHING" title="tobj.lexer.NOTHING"><code class="xref py py-obj docutils literal notranslate"><span class="pre">NOTHING</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#tobj.lexer.NEWLINE" title="tobj.lexer.NEWLINE"><code class="xref py py-obj docutils literal notranslate"><span class="pre">NEWLINE</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#tobj.lexer.EOF" title="tobj.lexer.EOF"><code class="xref py py-obj docutils literal notranslate"><span class="pre">EOF</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#tobj.lexer.WHITESPACE" title="tobj.lexer.WHITESPACE"><code class="xref py py-obj docutils literal notranslate"><span class="pre">WHITESPACE</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="classes">
+<h2>Classes<a class="headerlink" href="#classes" title="Link to this heading">¶</a></h2>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#tobj.lexer.Token" title="tobj.lexer.Token"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Token</span></code></a></p></td>
+<td><p>A single TinyObj token, representing a meaningful unit in the source code.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#tobj.lexer.Lexer" title="tobj.lexer.Lexer"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Lexer</span></code></a></p></td>
+<td><p>The TinyObj Lexer (scanner).</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="functions">
+<h2>Functions<a class="headerlink" href="#functions" title="Link to this heading">¶</a></h2>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#tobj.lexer.main" title="tobj.lexer.main"><code class="xref py py-obj docutils literal notranslate"><span class="pre">main</span></code></a>()</p></td>
+<td><p>Example usage of the Lexer.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="module-contents">
+<h2>Module Contents<a class="headerlink" href="#module-contents" title="Link to this heading">¶</a></h2>
+<dl class="py data">
+<dt class="sig sig-object py" id="tobj.lexer.STAR">
+<span class="sig-prename descclassname"><span class="pre">tobj.lexer.</span></span><span class="sig-name descname"><span class="pre">STAR</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'STAR'</span></span><a class="reference internal" href="../../../_modules/tobj/lexer.html#STAR"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tobj.lexer.STAR" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="tobj.lexer.ARROW">
+<span class="sig-prename descclassname"><span class="pre">tobj.lexer.</span></span><span class="sig-name descname"><span class="pre">ARROW</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'ARROW'</span></span><a class="reference internal" href="../../../_modules/tobj/lexer.html#ARROW"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tobj.lexer.ARROW" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="tobj.lexer.DASH">
+<span class="sig-prename descclassname"><span class="pre">tobj.lexer.</span></span><span class="sig-name descname"><span class="pre">DASH</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'DASH'</span></span><a class="reference internal" href="../../../_modules/tobj/lexer.html#DASH"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tobj.lexer.DASH" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="tobj.lexer.IDENTIFIER">
+<span class="sig-prename descclassname"><span class="pre">tobj.lexer.</span></span><span class="sig-name descname"><span class="pre">IDENTIFIER</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'IDENTIFIER'</span></span><a class="reference internal" href="../../../_modules/tobj/lexer.html#IDENTIFIER"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tobj.lexer.IDENTIFIER" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="tobj.lexer.STRING">
+<span class="sig-prename descclassname"><span class="pre">tobj.lexer.</span></span><span class="sig-name descname"><span class="pre">STRING</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'STRING'</span></span><a class="reference internal" href="../../../_modules/tobj/lexer.html#STRING"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tobj.lexer.STRING" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="tobj.lexer.NUMBER">
+<span class="sig-prename descclassname"><span class="pre">tobj.lexer.</span></span><span class="sig-name descname"><span class="pre">NUMBER</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'NUMBER'</span></span><a class="reference internal" href="../../../_modules/tobj/lexer.html#NUMBER"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tobj.lexer.NUMBER" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="tobj.lexer.BOOLEAN">
+<span class="sig-prename descclassname"><span class="pre">tobj.lexer.</span></span><span class="sig-name descname"><span class="pre">BOOLEAN</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'BOOLEAN'</span></span><a class="reference internal" href="../../../_modules/tobj/lexer.html#BOOLEAN"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tobj.lexer.BOOLEAN" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="tobj.lexer.NOTHING">
+<span class="sig-prename descclassname"><span class="pre">tobj.lexer.</span></span><span class="sig-name descname"><span class="pre">NOTHING</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'NOTHING'</span></span><a class="reference internal" href="../../../_modules/tobj/lexer.html#NOTHING"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tobj.lexer.NOTHING" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="tobj.lexer.NEWLINE">
+<span class="sig-prename descclassname"><span class="pre">tobj.lexer.</span></span><span class="sig-name descname"><span class="pre">NEWLINE</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'NEWLINE'</span></span><a class="reference internal" href="../../../_modules/tobj/lexer.html#NEWLINE"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tobj.lexer.NEWLINE" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="tobj.lexer.EOF">
+<span class="sig-prename descclassname"><span class="pre">tobj.lexer.</span></span><span class="sig-name descname"><span class="pre">EOF</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'EOF'</span></span><a class="reference internal" href="../../../_modules/tobj/lexer.html#EOF"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tobj.lexer.EOF" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="tobj.lexer.WHITESPACE">
+<span class="sig-prename descclassname"><span class="pre">tobj.lexer.</span></span><span class="sig-name descname"><span class="pre">WHITESPACE</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Ellipsis</span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">('</span> <span class="pre">',</span> <span class="pre">'\t',</span> <span class="pre">'\r',</span> <span class="pre">'\x0c',</span> <span class="pre">'\xa0',</span> <span class="pre">'\x0b',</span> <span class="pre">'\u1680',</span> <span class="pre">'\u2002',</span> <span class="pre">'\u2003',</span> <span class="pre">'\u2009',</span> <span class="pre">'\u200a',...</span></span><a class="reference internal" href="../../../_modules/tobj/lexer.html#WHITESPACE"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tobj.lexer.WHITESPACE" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="tobj.lexer.Token">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">tobj.lexer.</span></span><span class="sig-name descname"><span class="pre">Token</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pos_start</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../errors/index.html#tobj.errors.Position" title="tobj.errors.Position"><span class="pre">tobj.errors.Position</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">pos_end</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../errors/index.html#tobj.errors.Position" title="tobj.errors.Position"><span class="pre">tobj.errors.Position</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/tobj/lexer.html#Token"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tobj.lexer.Token" title="Link to this definition">¶</a></dt>
+<dd><p>A single TinyObj token, representing a meaningful unit in the source code.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>type</strong> (<em>str</em>) – The token type (e.g., STAR, NUMBER, IDENTIFIER).</p></li>
+<li><p><strong>value</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – The literal value of the token, if applicable.</p></li>
+<li><p><strong>pos_start</strong> (<a class="reference internal" href="../errors/index.html#tobj.errors.Position" title="tobj.errors.Position"><em>Position</em></a>) – The starting position of the token in the source.</p></li>
+<li><p><strong>pos_end</strong> (<a class="reference internal" href="../errors/index.html#tobj.errors.Position" title="tobj.errors.Position"><em>Position</em></a>) – The position immediately after the last character of the token.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="tobj.lexer.Token.type">
+<span class="sig-name descname"><span class="pre">type</span></span><a class="reference internal" href="../../../_modules/tobj/lexer.html#Token.type"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tobj.lexer.Token.type" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="tobj.lexer.Token.value">
+<span class="sig-name descname"><span class="pre">value</span></span><a class="reference internal" href="../../../_modules/tobj/lexer.html#Token.value"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tobj.lexer.Token.value" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="tobj.lexer.Token.pos_start">
+<span class="sig-name descname"><span class="pre">pos_start</span></span><a class="reference internal" href="../../../_modules/tobj/lexer.html#Token.pos_start"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tobj.lexer.Token.pos_start" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="tobj.lexer.Token.pos_end">
+<span class="sig-name descname"><span class="pre">pos_end</span></span><a class="reference internal" href="../../../_modules/tobj/lexer.html#Token.pos_end"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tobj.lexer.Token.pos_end" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tobj.lexer.Token.__repr__">
+<span class="sig-name descname"><span class="pre">__repr__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="../../../_modules/tobj/lexer.html#Token.__repr__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tobj.lexer.Token.__repr__" title="Link to this definition">¶</a></dt>
+<dd><p>Returns a string representation of the token for debugging.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="tobj.lexer.Lexer">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">tobj.lexer.</span></span><span class="sig-name descname"><span class="pre">Lexer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'&lt;string&gt;'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/tobj/lexer.html#Lexer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tobj.lexer.Lexer" title="Link to this definition">¶</a></dt>
+<dd><p>The TinyObj Lexer (scanner).</p>
+<p>It takes raw TinyObj text and converts it into a list of Token objects.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>text</strong> (<em>str</em>) – The full source code text.</p></li>
+<li><p><strong>filename</strong> (<em>str</em>) – The name of the source file. Defaults to ‘&lt;string&gt;’.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Variables<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>pos</strong> (<a class="reference internal" href="../errors/index.html#tobj.errors.Position" title="tobj.errors.Position"><em>Position</em></a>) – The current position in the source text.</p></li>
+<li><p><strong>current_char</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – The character at the current position, or None if EOF.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="tobj.lexer.Lexer.text">
+<span class="sig-name descname"><span class="pre">text</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></span><a class="reference internal" href="../../../_modules/tobj/lexer.html#Lexer.text"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tobj.lexer.Lexer.text" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="tobj.lexer.Lexer.pos">
+<span class="sig-name descname"><span class="pre">pos</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../errors/index.html#tobj.errors.Position" title="tobj.errors.Position"><span class="pre">tobj.errors.Position</span></a></span><a class="reference internal" href="../../../_modules/tobj/lexer.html#Lexer.pos"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tobj.lexer.Lexer.pos" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="tobj.lexer.Lexer.current_char">
+<span class="sig-name descname"><span class="pre">current_char</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="reference internal" href="../../../_modules/tobj/lexer.html#Lexer.current_char"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tobj.lexer.Lexer.current_char" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tobj.lexer.Lexer.advance">
+<span class="sig-name descname"><span class="pre">advance</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../../../_modules/tobj/lexer.html#Lexer.advance"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tobj.lexer.Lexer.advance" title="Link to this definition">¶</a></dt>
+<dd><p>Moves the lexer’s position to the next character and updates <cite>current_char</cite>.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tobj.lexer.Lexer.peek">
+<span class="sig-name descname"><span class="pre">peek</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">offset</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></span><a class="reference internal" href="../../../_modules/tobj/lexer.html#Lexer.peek"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tobj.lexer.Lexer.peek" title="Link to this definition">¶</a></dt>
+<dd><p>Looks ahead at a character without advancing the position.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>offset</strong> (<em>int</em>) – How many characters to look ahead. Defaults to 1.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The character at the peeked position, or None if past EOF.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Optional[str]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tobj.lexer.Lexer.skip_whitespace">
+<span class="sig-name descname"><span class="pre">skip_whitespace</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../../../_modules/tobj/lexer.html#Lexer.skip_whitespace"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tobj.lexer.Lexer.skip_whitespace" title="Link to this definition">¶</a></dt>
+<dd><p>Skips all standard horizontal whitespace characters (but NOT newlines!).</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tobj.lexer.Lexer.skip_comment">
+<span class="sig-name descname"><span class="pre">skip_comment</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../../../_modules/tobj/lexer.html#Lexer.skip_comment"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tobj.lexer.Lexer.skip_comment" title="Link to this definition">¶</a></dt>
+<dd><p>Skips characters from the current position until a newline character or EOF.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tobj.lexer.Lexer.tokenize">
+<span class="sig-name descname"><span class="pre">tokenize</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#tobj.lexer.Token" title="tobj.lexer.Token"><span class="pre">Token</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../../../_modules/tobj/lexer.html#Lexer.tokenize"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tobj.lexer.Lexer.tokenize" title="Link to this definition">¶</a></dt>
+<dd><p>The main tokenization loop. Reads the source code and produces a list of Tokens.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A list of all tokens found in the source code, ending with an EOF token.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>List[<a class="reference internal" href="#tobj.lexer.Token" title="tobj.lexer.Token">Token</a>]</p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="../errors/index.html#tobj.errors.LexerError" title="tobj.errors.LexerError"><strong>LexerError</strong></a> – If an unterminated string is found or an unexpected character is encountered.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="tobj.lexer.main">
+<span class="sig-prename descclassname"><span class="pre">tobj.lexer.</span></span><span class="sig-name descname"><span class="pre">main</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/tobj/lexer.html#main"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tobj.lexer.main" title="Link to this definition">¶</a></dt>
+<dd><p>Example usage of the Lexer.</p>
+</dd></dl>
+
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../../index.html">TinyObj</a></h1>
+
+
+
+
+
+
+
+
+
+<search id="searchbox" style="display: none" role="search">
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Search"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script><h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorial.html">Tutorial: Getting Started with TinyObj</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../index.html">API Reference</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../index.html">tobj</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="../index.html#submodules">Submodules</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="../errors/index.html">tobj.errors</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../interpreter/index.html">tobj.interpreter</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">tobj.lexer</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../main/index.html">tobj.main</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../parser/index.html">tobj.parser</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../../index.html">Documentation overview</a><ul>
+  <li><a href="../../index.html">API Reference</a><ul>
+  <li><a href="../index.html">tobj</a><ul>
+      <li>Previous: <a href="../interpreter/index.html" title="previous chapter">tobj.interpreter</a></li>
+      <li>Next: <a href="../main/index.html" title="next chapter">tobj.main</a></li>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &#169;2025, Razka Rizaldi.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 9.0.4</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 1.0.0</a>
+      
+      |
+      <a href="../../../_sources/api/tobj/lexer/index.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

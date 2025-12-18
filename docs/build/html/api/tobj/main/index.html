@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../../../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>tobj.main &#8212; TinyObj 0.2.1 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=5ecbeea2" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/basic.css?v=b08954a9" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/alabaster.css?v=27fed22d" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css?v=4ae1632d" />
+    <script src="../../../_static/documentation_options.js?v=37f418d5"></script>
+    <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="tobj.parser" href="../parser/index.html" />
+    <link rel="prev" title="tobj.lexer" href="../lexer/index.html" />
+   
+  <link rel="stylesheet" href="../../../_static/custom.css" type="text/css" />
+  
+
+  
+  
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="module-tobj.main">
+<span id="tobj-main"></span><h1>tobj.main<a class="headerlink" href="#module-tobj.main" title="Link to this heading">¶</a></h1>
+<p>TinyObj v0.1.0,
+a tiny object format for freedom.</p>
+<p>This module provides the public API for the TinyObj format, including functions
+for deserialization (<cite>loads</cite>, <cite>load</cite>) and serialization (<cite>dumps</cite>, <cite>dump</cite>).</p>
+<section id="functions">
+<h2>Functions<a class="headerlink" href="#functions" title="Link to this heading">¶</a></h2>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#tobj.main.loads" title="tobj.main.loads"><code class="xref py py-obj docutils literal notranslate"><span class="pre">loads</span></code></a>(→ Optional[Dict[str, Any]])</p></td>
+<td><p>Parse TOBJ from a string.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#tobj.main.load" title="tobj.main.load"><code class="xref py py-obj docutils literal notranslate"><span class="pre">load</span></code></a>(→ Optional[Dict[str, Any]])</p></td>
+<td><p>Parse TinyObj from a file object.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#tobj.main.dumps" title="tobj.main.dumps"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dumps</span></code></a>(→ str)</p></td>
+<td><p>Converts a Python dictionary into a TinyObj string format.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#tobj.main.dump" title="tobj.main.dump"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dump</span></code></a>(→ None)</p></td>
+<td><p>Converts a Python dictionary to TinyObj format and writes it to a file object.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#tobj.main.test_case" title="tobj.main.test_case"><code class="xref py py-obj docutils literal notranslate"><span class="pre">test_case</span></code></a>(→ None)</p></td>
+<td><p>Run a single test case with error handling</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#tobj.main.test_case_file" title="tobj.main.test_case_file"><code class="xref py py-obj docutils literal notranslate"><span class="pre">test_case_file</span></code></a>(→ None)</p></td>
+<td><p>Run a single test case with error handling from a file</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#tobj.main.test_roundtrip" title="tobj.main.test_roundtrip"><code class="xref py py-obj docutils literal notranslate"><span class="pre">test_roundtrip</span></code></a>()</p></td>
+<td><p>Test serialization and deserialization integrity</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#tobj.main.main" title="tobj.main.main"><code class="xref py py-obj docutils literal notranslate"><span class="pre">main</span></code></a>()</p></td>
+<td><p>Run all edge case tests</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="module-contents">
+<h2>Module Contents<a class="headerlink" href="#module-contents" title="Link to this heading">¶</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="tobj.main.loads">
+<span class="sig-prename descclassname"><span class="pre">tobj.main.</span></span><span class="sig-name descname"><span class="pre">loads</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">string_code</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'&lt;string&gt;'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></span><a class="reference internal" href="../../../_modules/tobj/main.html#loads"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tobj.main.loads" title="Link to this definition">¶</a></dt>
+<dd><p>Parse TOBJ from a string.</p>
+<p>The primary entry point for deserializing TinyObj code. It chains the
+Lexer, Parser, and Interpreter to convert the source string into a
+Python dictionary.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>string_code</strong> (<em>str</em>) – TOBJ source code.</p></li>
+<li><p><strong>filename</strong> (<em>str</em>) – Name to show in error messages. Defaults to “&lt;string&gt;”.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Parsed Python dict, or None if the input string is empty.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Optional[Dict[str, Any]]</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><a class="reference internal" href="../errors/index.html#tobj.errors.LexerError" title="tobj.errors.LexerError"><strong>LexerError</strong></a> – An error encountered during the tokenization phase.</p></li>
+<li><p><a class="reference internal" href="../errors/index.html#tobj.errors.ParserError" title="tobj.errors.ParserError"><strong>ParserError</strong></a> – An error encountered during the AST construction phase.</p></li>
+<li><p><a class="reference internal" href="../errors/index.html#tobj.errors.InterpreterError" title="tobj.errors.InterpreterError"><strong>InterpreterError</strong></a> – An error encountered during the final dict construction phase.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="tobj.main.load">
+<span class="sig-prename descclassname"><span class="pre">tobj.main.</span></span><span class="sig-name descname"><span class="pre">load</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></span><a class="reference internal" href="../../../_modules/tobj/main.html#load"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tobj.main.load" title="Link to this definition">¶</a></dt>
+<dd><p>Parse TinyObj from a file object.</p>
+<p>Reads the entire content of a file-like object and passes it to <cite>loads</cite>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>file</strong> – File-like object to read from (must have a <cite>.read()</cite> method).</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Parsed Python dict.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Optional[Dict[str, Any]]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="tobj.main.dumps">
+<span class="sig-prename descclassname"><span class="pre">tobj.main.</span></span><span class="sig-name descname"><span class="pre">dumps</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="../../../_modules/tobj/main.html#dumps"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tobj.main.dumps" title="Link to this definition">¶</a></dt>
+<dd><p>Converts a Python dictionary into a TinyObj string format.</p>
+<p>This function recursively serializes nested dictionaries and lists into
+the object (*), property (&gt;), and list (-) format of TinyObj.</p>
+<p>:param  The Python dictionary to serialize.
+:type  Dict[str, Any]
+:return: The resulting TinyObj source code string.
+:rtype: str</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="tobj.main.dump">
+<span class="sig-prename descclassname"><span class="pre">tobj.main.</span></span><span class="sig-name descname"><span class="pre">dump</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../../../_modules/tobj/main.html#dump"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tobj.main.dump" title="Link to this definition">¶</a></dt>
+<dd><p>Converts a Python dictionary to TinyObj format and writes it to a file object.</p>
+<p>:param  The Python dictionary to dump.
+:type data: Dict[str, Any]
+:param file: File-like object to write the resulting TinyObj string to.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="tobj.main.test_case">
+<span class="sig-prename descclassname"><span class="pre">tobj.main.</span></span><span class="sig-name descname"><span class="pre">test_case</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">code</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../../../_modules/tobj/main.html#test_case"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tobj.main.test_case" title="Link to this definition">¶</a></dt>
+<dd><p>Run a single test case with error handling</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="tobj.main.test_case_file">
+<span class="sig-prename descclassname"><span class="pre">tobj.main.</span></span><span class="sig-name descname"><span class="pre">test_case_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">code</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../../../_modules/tobj/main.html#test_case_file"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tobj.main.test_case_file" title="Link to this definition">¶</a></dt>
+<dd><p>Run a single test case with error handling from a file</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="tobj.main.test_roundtrip">
+<span class="sig-prename descclassname"><span class="pre">tobj.main.</span></span><span class="sig-name descname"><span class="pre">test_roundtrip</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/tobj/main.html#test_roundtrip"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tobj.main.test_roundtrip" title="Link to this definition">¶</a></dt>
+<dd><p>Test serialization and deserialization integrity</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="tobj.main.main">
+<span class="sig-prename descclassname"><span class="pre">tobj.main.</span></span><span class="sig-name descname"><span class="pre">main</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/tobj/main.html#main"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tobj.main.main" title="Link to this definition">¶</a></dt>
+<dd><p>Run all edge case tests</p>
+</dd></dl>
+
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../../index.html">TinyObj</a></h1>
+
+
+
+
+
+
+
+
+
+<search id="searchbox" style="display: none" role="search">
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Search"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script><h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorial.html">Tutorial: Getting Started with TinyObj</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../index.html">API Reference</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../index.html">tobj</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="../index.html#submodules">Submodules</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="../errors/index.html">tobj.errors</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../interpreter/index.html">tobj.interpreter</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../lexer/index.html">tobj.lexer</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">tobj.main</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../parser/index.html">tobj.parser</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../../index.html">Documentation overview</a><ul>
+  <li><a href="../../index.html">API Reference</a><ul>
+  <li><a href="../index.html">tobj</a><ul>
+      <li>Previous: <a href="../lexer/index.html" title="previous chapter">tobj.lexer</a></li>
+      <li>Next: <a href="../parser/index.html" title="next chapter">tobj.parser</a></li>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &#169;2025, Razka Rizaldi.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 9.0.4</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 1.0.0</a>
+      
+      |
+      <a href="../../../_sources/api/tobj/main/index.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

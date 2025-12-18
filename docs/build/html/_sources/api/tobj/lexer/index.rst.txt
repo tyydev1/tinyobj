@@ -1,0 +1,211 @@
+tobj.lexer
+==========
+
+.. py:module:: tobj.lexer
+
+.. autoapi-nested-parse::
+
+   Lexer for TOBJ
+
+   This module contains the Lexer responsible for converting TinyObj source code
+   into a sequence of tokens.
+
+
+
+Attributes
+----------
+
+.. autoapisummary::
+
+   tobj.lexer.STAR
+   tobj.lexer.ARROW
+   tobj.lexer.DASH
+   tobj.lexer.IDENTIFIER
+   tobj.lexer.STRING
+   tobj.lexer.NUMBER
+   tobj.lexer.BOOLEAN
+   tobj.lexer.NOTHING
+   tobj.lexer.NEWLINE
+   tobj.lexer.EOF
+   tobj.lexer.WHITESPACE
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   tobj.lexer.Token
+   tobj.lexer.Lexer
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   tobj.lexer.main
+
+
+Module Contents
+---------------
+
+.. py:data:: STAR
+   :type:  str
+   :value: 'STAR'
+
+
+.. py:data:: ARROW
+   :type:  str
+   :value: 'ARROW'
+
+
+.. py:data:: DASH
+   :type:  str
+   :value: 'DASH'
+
+
+.. py:data:: IDENTIFIER
+   :type:  str
+   :value: 'IDENTIFIER'
+
+
+.. py:data:: STRING
+   :type:  str
+   :value: 'STRING'
+
+
+.. py:data:: NUMBER
+   :type:  str
+   :value: 'NUMBER'
+
+
+.. py:data:: BOOLEAN
+   :type:  str
+   :value: 'BOOLEAN'
+
+
+.. py:data:: NOTHING
+   :type:  str
+   :value: 'NOTHING'
+
+
+.. py:data:: NEWLINE
+   :type:  str
+   :value: 'NEWLINE'
+
+
+.. py:data:: EOF
+   :type:  str
+   :value: 'EOF'
+
+
+.. py:data:: WHITESPACE
+   :type:  Tuple[str, Ellipsis]
+   :value: (' ', '\t', '\r', '\x0c', '\xa0', '\x0b', '\u1680', '\u2002', '\u2003', '\u2009', '\u200a',...
+
+
+.. py:class:: Token(type: str, value: Optional[str], pos_start: tobj.errors.Position, pos_end: tobj.errors.Position)
+
+   A single TinyObj token, representing a meaningful unit in the source code.
+
+   :param type: The token type (e.g., STAR, NUMBER, IDENTIFIER).
+   :type type: str
+   :param value: The literal value of the token, if applicable.
+   :type value: Optional[str]
+   :param pos_start: The starting position of the token in the source.
+   :type pos_start: Position
+   :param pos_end: The position immediately after the last character of the token.
+   :type pos_end: Position
+
+
+   .. py:attribute:: type
+
+
+   .. py:attribute:: value
+
+
+   .. py:attribute:: pos_start
+
+
+   .. py:attribute:: pos_end
+
+
+   .. py:method:: __repr__() -> str
+
+      Returns a string representation of the token for debugging.
+
+
+
+.. py:class:: Lexer(text: str, filename: str = '<string>')
+
+   The TinyObj Lexer (scanner).
+
+   It takes raw TinyObj text and converts it into a list of Token objects.
+
+   :param text: The full source code text.
+   :type text: str
+   :param filename: The name of the source file. Defaults to '<string>'.
+   :type filename: str
+   :ivar pos: The current position in the source text.
+   :vartype pos: Position
+   :ivar current_char: The character at the current position, or None if EOF.
+   :vartype current_char: Optional[str]
+
+
+   .. py:attribute:: text
+      :type:  str
+
+
+   .. py:attribute:: pos
+      :type:  tobj.errors.Position
+
+
+   .. py:attribute:: current_char
+      :type:  Optional[str]
+
+
+   .. py:method:: advance() -> None
+
+      Moves the lexer's position to the next character and updates `current_char`.
+
+
+
+   .. py:method:: peek(offset: int = 1) -> Optional[str]
+
+      Looks ahead at a character without advancing the position.
+
+      :param offset: How many characters to look ahead. Defaults to 1.
+      :type offset: int
+      :return: The character at the peeked position, or None if past EOF.
+      :rtype: Optional[str]
+
+
+
+   .. py:method:: skip_whitespace() -> None
+
+      Skips all standard horizontal whitespace characters (but NOT newlines!).
+
+
+
+   .. py:method:: skip_comment() -> None
+
+      Skips characters from the current position until a newline character or EOF.
+
+
+
+   .. py:method:: tokenize() -> List[Token]
+
+      The main tokenization loop. Reads the source code and produces a list of Tokens.
+
+      :return: A list of all tokens found in the source code, ending with an EOF token.
+      :rtype: List[Token]
+      :raises LexerError: If an unterminated string is found or an unexpected character is encountered.
+
+
+
+.. py:function:: main()
+
+   Example usage of the Lexer.
+
+

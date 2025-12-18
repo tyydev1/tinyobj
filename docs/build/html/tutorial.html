@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="./">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Tutorial: Getting Started with TinyObj &#8212; TinyObj 0.2.1 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=5ecbeea2" />
+    <link rel="stylesheet" type="text/css" href="_static/basic.css?v=b08954a9" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css?v=27fed22d" />
+    <link rel="stylesheet" type="text/css" href="_static/graphviz.css?v=4ae1632d" />
+    <script src="_static/documentation_options.js?v=37f418d5"></script>
+    <script src="_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="API Reference" href="api/index.html" />
+    <link rel="prev" title="TinyObj documentation" href="index.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+
+  
+  
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="tutorial-getting-started-with-tinyobj">
+<h1>Tutorial: Getting Started with TinyObj<a class="headerlink" href="#tutorial-getting-started-with-tinyobj" title="Link to this heading">¶</a></h1>
+<p>TinyObj (TOBJ) is a minimalist, human-readable data format designed for “freedom.” It uses a simple shorthand to represent nested objects, properties, and lists without the heavy nesting of JSON or the indentation-sensitivity of YAML.</p>
+<section id="syntax-basics">
+<h2>Syntax Basics<a class="headerlink" href="#syntax-basics" title="Link to this heading">¶</a></h2>
+<p>There are three primary symbols in TinyObj:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">*</span></code> (Star): Defines an <strong>Object</strong> or a path to an object.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&gt;</span></code> (Arrow): Defines a <strong>Property</strong> (key-value pair).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-</span></code> (Dash): Defines a <strong>List Item</strong>.</p></li>
+</ul>
+<p>Sub-symbols include:</p>
+<ul class="simple">
+<li><p>Dot (<code class="docutils literal notranslate"><span class="pre">.</span></code>): Used in object names to denote nested objects (e.g., <code class="docutils literal notranslate"><span class="pre">*User.profile</span></code>).</p></li>
+<li><p>Octothorpe (<code class="docutils literal notranslate"><span class="pre">#</span></code>): Used for comments. Anything after <code class="docutils literal notranslate"><span class="pre">#</span></code> on a line is ignored.</p></li>
+<li><p>Double Slash (<code class="docutils literal notranslate"><span class="pre">//</span></code>): Also used for comments.</p></li>
+<li><p>Ellipsis (<code class="docutils literal notranslate"><span class="pre">...</span></code>): Used to indicate continuation. Is ignored during parsing, and only the ellipsis. (anything else on the line is parsed)</p></li>
+</ul>
+<section id="basic-comments">
+<h3>Basic comments<a class="headerlink" href="#basic-comments" title="Link to this heading">¶</a></h3>
+<p>Comments can be added using <code class="docutils literal notranslate"><span class="pre">#</span></code> or <code class="docutils literal notranslate"><span class="pre">//</span></code>. Anything following these symbols on the same line is ignored.</p>
+<div class="highlight-tobj notranslate"><div class="highlight"><pre><span></span>*User  # This is a user object
+  &gt; name &quot;Alice&quot;  // User&#39;s name
+  &gt; age 30  # User&#39;s age
+</pre></div>
+</div>
+<p>There’s also the ellipsis symbol <code class="docutils literal notranslate"><span class="pre">...</span></code> which indicates continuation, but should not be used for comments or on production.</p>
+<div class="highlight-tobj notranslate"><div class="highlight"><pre><span></span>*Data
+    &gt; values
+        - 10
+        - 20
+        - 30
+    ...  # TEAM NOTE: More values can be added here
+    // DOC NOTE: Ellipsis shouldn&#39;t be used for comments and production code.
+</pre></div>
+</div>
+</section>
+<section id="basic-object">
+<h3>Basic Object<a class="headerlink" href="#basic-object" title="Link to this heading">¶</a></h3>
+<p>An object starts with a <code class="docutils literal notranslate"><span class="pre">*</span></code> followed by its name. Properties belong to the most recently declared object.</p>
+<div class="highlight-tobj notranslate"><div class="highlight"><pre><span></span>*User
+    &gt; name    &quot;Alice&quot;
+    &gt; age     30
+    &gt; active  true
+</pre></div>
+</div>
+<p>This translates to the following Python dictionary:
+<code class="docutils literal notranslate"><span class="pre">{&quot;User&quot;:</span> <span class="pre">{&quot;name&quot;:</span> <span class="pre">&quot;Alice&quot;,</span> <span class="pre">&quot;age&quot;:</span> <span class="pre">30,</span> <span class="pre">&quot;active&quot;:</span> <span class="pre">True}}</span></code></p>
+</section>
+<section id="nested-objects">
+<h3>Nested Objects<a class="headerlink" href="#nested-objects" title="Link to this heading">¶</a></h3>
+<p>You can define nested structures using dot notation. You do not need to define the parent object explicitly first; TinyObj will create the path for you.</p>
+<div class="highlight-tobj notranslate"><div class="highlight"><pre><span></span>*User.profile
+    &gt; bio       &quot;Software Engineer&quot;
+    &gt; location  &quot;Earth&quot;
+</pre></div>
+</div>
+</section>
+<section id="lists-and-collections">
+<h3>Lists and Collections<a class="headerlink" href="#lists-and-collections" title="Link to this heading">¶</a></h3>
+<p>Lists can be written in two ways:</p>
+<ol class="arabic simple">
+<li><p><strong>Multi-line lists</strong>: Place each item on a new line starting with a <code class="docutils literal notranslate"><span class="pre">-</span></code>.</p></li>
+<li><p><strong>One-liner lists</strong>: Place items on the same line as the property.</p></li>
+</ol>
+<div class="highlight-tobj notranslate"><div class="highlight"><pre><span></span>*Config
+    &gt; tags
+        - python
+        - rust
+        - tobj
+
+*Data
+    &gt; readings - 10 - 20 - 30.5
+</pre></div>
+</div>
+</section>
+</section>
+<section id="using-the-python-api">
+<h2>Using the Python API<a class="headerlink" href="#using-the-python-api" title="Link to this heading">¶</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">tobj</span></code> package provides a simple interface similar to Python’s built-in <code class="docutils literal notranslate"><span class="pre">json</span></code> module.</p>
+<section id="loading-tinyobj">
+<h3>Loading TinyObj<a class="headerlink" href="#loading-tinyobj" title="Link to this heading">¶</a></h3>
+<p>You can parse TinyObj from a string or a file using <code class="docutils literal notranslate"><span class="pre">loads</span></code> and <code class="docutils literal notranslate"><span class="pre">load</span></code>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">tobj</span>
+
+<span class="n">data</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">*Settings</span>
+<span class="s2">&gt; theme &quot;dark&quot;</span>
+<span class="s2">&gt; volume 80</span>
+<span class="s2">&quot;&quot;&quot;</span>
+
+<span class="c1"># Parse from string</span>
+<span class="n">config</span> <span class="o">=</span> <span class="n">tobj</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;Settings&#39;</span><span class="p">][</span><span class="s1">&#39;theme&#39;</span><span class="p">])</span> <span class="c1"># Output: dark</span>
+
+<span class="c1"># Parse from file</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;config.tobj&#39;</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">config_file</span> <span class="o">=</span> <span class="n">tobj</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="serializing-to-tinyobj">
+<h3>Serializing to TinyObj<a class="headerlink" href="#serializing-to-tinyobj" title="Link to this heading">¶</a></h3>
+<p>To convert a Python dictionary back into TinyObj format, use <code class="docutils literal notranslate"><span class="pre">dumps</span></code> or <code class="docutils literal notranslate"><span class="pre">dump</span></code>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">tobj</span>
+
+<span class="n">my_data</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;Database&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;host&quot;</span><span class="p">:</span> <span class="s2">&quot;localhost&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;ports&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">8080</span><span class="p">,</span> <span class="mi">8081</span><span class="p">]</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="n">tobj_string</span> <span class="o">=</span> <span class="n">tobj</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">my_data</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">tobj_string</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="handling-errors">
+<h2>Handling Errors<a class="headerlink" href="#handling-errors" title="Link to this heading">¶</a></h2>
+<p>TinyObj provides descriptive error messages that highlight exactly where a syntax error occurred using carets (<code class="docutils literal notranslate"><span class="pre">^</span></code>).</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">try</span><span class="p">:</span>
+    <span class="n">tobj</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="s2">&quot;&gt; name Alice&quot;</span><span class="p">)</span> <span class="c1"># Error: Property without object context</span>
+<span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="common-data-types">
+<h2>Common Data Types<a class="headerlink" href="#common-data-types" title="Link to this heading">¶</a></h2>
+<p>TinyObj supports the following types natively:</p>
+<ul class="simple">
+<li><p><strong>Strings</strong>: <code class="docutils literal notranslate"><span class="pre">&quot;Hello&quot;</span></code> (Supports escapes like <code class="docutils literal notranslate"><span class="pre">\n</span></code>, <code class="docutils literal notranslate"><span class="pre">\t</span></code>, <code class="docutils literal notranslate"><span class="pre">\&quot;</span></code>)</p></li>
+<li><p><strong>Numbers</strong>: <code class="docutils literal notranslate"><span class="pre">42</span></code>, <code class="docutils literal notranslate"><span class="pre">-3.14</span></code></p></li>
+<li><p><strong>Booleans</strong>: <code class="docutils literal notranslate"><span class="pre">true</span></code>, <code class="docutils literal notranslate"><span class="pre">false</span></code></p></li>
+<li><p><strong>Nulls</strong>: <code class="docutils literal notranslate"><span class="pre">nothing</span></code></p></li>
+<li><p><strong>Identifiers</strong>: Unquoted keys and values (e.g., <code class="docutils literal notranslate"><span class="pre">Alice</span></code>)</p></li>
+</ul>
+</section>
+<section id="next-steps">
+<h2>Next Steps<a class="headerlink" href="#next-steps" title="Link to this heading">¶</a></h2>
+<ul class="simple">
+<li><p>Explore the <strong>API Reference</strong> for details on the Lexer and Parser.</p></li>
+<li><p>Check out the <code class="docutils literal notranslate"><span class="pre">samples/</span></code> directory in the repository for more complex examples.</p></li>
+</ul>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">TinyObj</a></h1>
+
+
+
+
+
+
+
+
+
+<search id="searchbox" style="display: none" role="search">
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Search"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script><h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Tutorial: Getting Started with TinyObj</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#syntax-basics">Syntax Basics</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#basic-comments">Basic comments</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#basic-object">Basic Object</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#nested-objects">Nested Objects</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#lists-and-collections">Lists and Collections</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#using-the-python-api">Using the Python API</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#loading-tinyobj">Loading TinyObj</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#serializing-to-tinyobj">Serializing to TinyObj</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#handling-errors">Handling Errors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#common-data-types">Common Data Types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#next-steps">Next Steps</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api/index.html">API Reference</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="index.html" title="previous chapter">TinyObj documentation</a></li>
+      <li>Next: <a href="api/index.html" title="next chapter">API Reference</a></li>
+  </ul></li>
+</ul>
+</div>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &#169;2025, Razka Rizaldi.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 9.0.4</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 1.0.0</a>
+      
+      |
+      <a href="_sources/tutorial.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

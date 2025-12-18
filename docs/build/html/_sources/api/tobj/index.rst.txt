@@ -1,0 +1,25 @@
+tobj
+====
+
+.. py:module:: tobj
+
+.. autoapi-nested-parse::
+
+   TinyObj v0.2.1,
+   a tiny object format for freedom.
+
+
+
+Submodules
+----------
+
+.. toctree::
+   :maxdepth: 1
+
+   /api/tobj/errors/index
+   /api/tobj/interpreter/index
+   /api/tobj/lexer/index
+   /api/tobj/main/index
+   /api/tobj/parser/index
+
+

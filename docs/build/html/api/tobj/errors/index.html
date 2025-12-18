@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../../../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>tobj.errors &#8212; TinyObj 0.2.1 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=5ecbeea2" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/basic.css?v=b08954a9" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/alabaster.css?v=27fed22d" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css?v=4ae1632d" />
+    <script src="../../../_static/documentation_options.js?v=37f418d5"></script>
+    <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="tobj.interpreter" href="../interpreter/index.html" />
+    <link rel="prev" title="tobj" href="../index.html" />
+   
+  <link rel="stylesheet" href="../../../_static/custom.css" type="text/css" />
+  
+
+  
+  
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="module-tobj.errors">
+<span id="tobj-errors"></span><h1>tobj.errors<a class="headerlink" href="#module-tobj.errors" title="Link to this heading">¶</a></h1>
+<p>TinyObj’s Custom Errors</p>
+<section id="exceptions">
+<h2>Exceptions<a class="headerlink" href="#exceptions" title="Link to this heading">¶</a></h2>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#tobj.errors.TinyObjError" title="tobj.errors.TinyObjError"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TinyObjError</span></code></a></p></td>
+<td><p>Base error class for TinyObj.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#tobj.errors.LexerError" title="tobj.errors.LexerError"><code class="xref py py-obj docutils literal notranslate"><span class="pre">LexerError</span></code></a></p></td>
+<td><p>Lexer-specific errors, raised during the tokenization phase.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#tobj.errors.ParserError" title="tobj.errors.ParserError"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ParserError</span></code></a></p></td>
+<td><p>Parser-specific errors, raised during the syntax analysis (AST construction) phase.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#tobj.errors.InterpreterError" title="tobj.errors.InterpreterError"><code class="xref py py-obj docutils literal notranslate"><span class="pre">InterpreterError</span></code></a></p></td>
+<td><p>Interpreter-specific errors, raised during the runtime execution phase.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="classes">
+<h2>Classes<a class="headerlink" href="#classes" title="Link to this heading">¶</a></h2>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#tobj.errors.Position" title="tobj.errors.Position"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Position</span></code></a></p></td>
+<td><p>Tracks position in source code.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="functions">
+<h2>Functions<a class="headerlink" href="#functions" title="Link to this heading">¶</a></h2>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#tobj.errors.string_with_arrows" title="tobj.errors.string_with_arrows"><code class="xref py py-obj docutils literal notranslate"><span class="pre">string_with_arrows</span></code></a>(text, pos_start, pos_end)</p></td>
+<td><p>Generates a string representation of the source code snippet</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="module-contents">
+<h2>Module Contents<a class="headerlink" href="#module-contents" title="Link to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="tobj.errors.Position">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">tobj.errors.</span></span><span class="sig-name descname"><span class="pre">Position</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">idx</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ln</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">col</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">text</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/tobj/errors.html#Position"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tobj.errors.Position" title="Link to this definition">¶</a></dt>
+<dd><p>Tracks position in source code.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>idx</strong> (<em>int</em>) – Current index in the source text.</p></li>
+<li><p><strong>ln</strong> (<em>int</em>) – Current line number (1-indexed).</p></li>
+<li><p><strong>col</strong> (<em>int</em>) – Current column number (1-indexed).</p></li>
+<li><p><strong>filename</strong> (<em>str</em>) – Name of the source file.</p></li>
+<li><p><strong>text</strong> (<em>str</em>) – The full source text.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="tobj.errors.Position.idx">
+<span class="sig-name descname"><span class="pre">idx</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></span><a class="reference internal" href="../../../_modules/tobj/errors.html#Position.idx"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tobj.errors.Position.idx" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="tobj.errors.Position.ln">
+<span class="sig-name descname"><span class="pre">ln</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></span><a class="reference internal" href="../../../_modules/tobj/errors.html#Position.ln"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tobj.errors.Position.ln" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="tobj.errors.Position.col">
+<span class="sig-name descname"><span class="pre">col</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></span><a class="reference internal" href="../../../_modules/tobj/errors.html#Position.col"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tobj.errors.Position.col" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="tobj.errors.Position.filename">
+<span class="sig-name descname"><span class="pre">filename</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></span><a class="reference internal" href="../../../_modules/tobj/errors.html#Position.filename"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tobj.errors.Position.filename" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="tobj.errors.Position.text">
+<span class="sig-name descname"><span class="pre">text</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></span><a class="reference internal" href="../../../_modules/tobj/errors.html#Position.text"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tobj.errors.Position.text" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tobj.errors.Position.advance">
+<span class="sig-name descname"><span class="pre">advance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">current_char</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#tobj.errors.Position" title="tobj.errors.Position"><span class="pre">Position</span></a></span></span><a class="reference internal" href="../../../_modules/tobj/errors.html#Position.advance"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tobj.errors.Position.advance" title="Link to this definition">¶</a></dt>
+<dd><p>Move position forward one character.</p>
+<p>Updates the index, column, and line based on the current character.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>current_char</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – The character being advanced over.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The updated Position object (self).</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#tobj.errors.Position" title="tobj.errors.Position">Position</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tobj.errors.Position.copy">
+<span class="sig-name descname"><span class="pre">copy</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#tobj.errors.Position" title="tobj.errors.Position"><span class="pre">Position</span></a></span></span><a class="reference internal" href="../../../_modules/tobj/errors.html#Position.copy"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tobj.errors.Position.copy" title="Link to this definition">¶</a></dt>
+<dd><p>Creates a deep copy of the current Position object.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A new Position object with the same state.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="#tobj.errors.Position" title="tobj.errors.Position">Position</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="tobj.errors.string_with_arrows">
+<span class="sig-prename descclassname"><span class="pre">tobj.errors.</span></span><span class="sig-name descname"><span class="pre">string_with_arrows</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pos_start</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pos_end</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/tobj/errors.html#string_with_arrows"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tobj.errors.string_with_arrows" title="Link to this definition">¶</a></dt>
+<dd><p>Generates a string representation of the source code snippet
+highlighting the error range with carets (^).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>text</strong> (<em>str</em>) – The full source code text.</p></li>
+<li><p><strong>pos_start</strong> (<a class="reference internal" href="#tobj.errors.Position" title="tobj.errors.Position"><em>Position</em></a>) – The starting position of the error.</p></li>
+<li><p><strong>pos_end</strong> (<a class="reference internal" href="#tobj.errors.Position" title="tobj.errors.Position"><em>Position</em></a>) – The ending position of the error.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The highlighted source code snippet.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="tobj.errors.TinyObjError">
+<span class="property"><span class="k"><span class="pre">exception</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">tobj.errors.</span></span><span class="sig-name descname"><span class="pre">TinyObjError</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pos_start</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#tobj.errors.Position" title="tobj.errors.Position"><span class="pre">Position</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">pos_end</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#tobj.errors.Position" title="tobj.errors.Position"><span class="pre">Position</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">error_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">details</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/tobj/errors.html#TinyObjError"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tobj.errors.TinyObjError" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-obj docutils literal notranslate"><span class="pre">Exception</span></code></p>
+<p>Base error class for TinyObj.</p>
+<p>All custom errors in the TinyObj language should inherit from this class.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>pos_start</strong> (<a class="reference internal" href="#tobj.errors.Position" title="tobj.errors.Position"><em>Position</em></a>) – Starting position of the error in source code.</p></li>
+<li><p><strong>pos_end</strong> (<a class="reference internal" href="#tobj.errors.Position" title="tobj.errors.Position"><em>Position</em></a>) – Ending position of the error in source code.</p></li>
+<li><p><strong>error_name</strong> (<em>str</em>) – The name of the error (e.g., “LexerError”).</p></li>
+<li><p><strong>details</strong> (<em>str</em>) – Specific details about the error.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="tobj.errors.TinyObjError.pos_start">
+<span class="sig-name descname"><span class="pre">pos_start</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#tobj.errors.Position" title="tobj.errors.Position"><span class="pre">Position</span></a></span><a class="reference internal" href="../../../_modules/tobj/errors.html#TinyObjError.pos_start"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tobj.errors.TinyObjError.pos_start" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="tobj.errors.TinyObjError.pos_end">
+<span class="sig-name descname"><span class="pre">pos_end</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#tobj.errors.Position" title="tobj.errors.Position"><span class="pre">Position</span></a></span><a class="reference internal" href="../../../_modules/tobj/errors.html#TinyObjError.pos_end"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tobj.errors.TinyObjError.pos_end" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="tobj.errors.TinyObjError.error_name">
+<span class="sig-name descname"><span class="pre">error_name</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></span><a class="reference internal" href="../../../_modules/tobj/errors.html#TinyObjError.error_name"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tobj.errors.TinyObjError.error_name" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="tobj.errors.TinyObjError.details">
+<span class="sig-name descname"><span class="pre">details</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></span><a class="reference internal" href="../../../_modules/tobj/errors.html#TinyObjError.details"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tobj.errors.TinyObjError.details" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tobj.errors.TinyObjError.__str__">
+<span class="sig-name descname"><span class="pre">__str__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="../../../_modules/tobj/errors.html#TinyObjError.__str__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tobj.errors.TinyObjError.__str__" title="Link to this definition">¶</a></dt>
+<dd><p>Generates a user-friendly string representation of the error,
+including the error type, details, file, line number, and a highlighted
+snippet of the source code.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The formatted error message.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="tobj.errors.LexerError">
+<span class="property"><span class="k"><span class="pre">exception</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">tobj.errors.</span></span><span class="sig-name descname"><span class="pre">LexerError</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pos_start</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#tobj.errors.Position" title="tobj.errors.Position"><span class="pre">Position</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">pos_end</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#tobj.errors.Position" title="tobj.errors.Position"><span class="pre">Position</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">details</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/tobj/errors.html#LexerError"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tobj.errors.LexerError" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#tobj.errors.TinyObjError" title="tobj.errors.TinyObjError"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TinyObjError</span></code></a></p>
+<p>Lexer-specific errors, raised during the tokenization phase.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>pos_start</strong> (<a class="reference internal" href="#tobj.errors.Position" title="tobj.errors.Position"><em>Position</em></a>) – Starting position of the error.</p></li>
+<li><p><strong>pos_end</strong> (<a class="reference internal" href="#tobj.errors.Position" title="tobj.errors.Position"><em>Position</em></a>) – Ending position of the error.</p></li>
+<li><p><strong>details</strong> (<em>str</em>) – Specific details about the lexing error.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="tobj.errors.ParserError">
+<span class="property"><span class="k"><span class="pre">exception</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">tobj.errors.</span></span><span class="sig-name descname"><span class="pre">ParserError</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pos_start</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#tobj.errors.Position" title="tobj.errors.Position"><span class="pre">Position</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">pos_end</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#tobj.errors.Position" title="tobj.errors.Position"><span class="pre">Position</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">details</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/tobj/errors.html#ParserError"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tobj.errors.ParserError" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#tobj.errors.TinyObjError" title="tobj.errors.TinyObjError"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TinyObjError</span></code></a></p>
+<p>Parser-specific errors, raised during the syntax analysis (AST construction) phase.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>pos_start</strong> (<a class="reference internal" href="#tobj.errors.Position" title="tobj.errors.Position"><em>Position</em></a>) – Starting position of the error.</p></li>
+<li><p><strong>pos_end</strong> (<a class="reference internal" href="#tobj.errors.Position" title="tobj.errors.Position"><em>Position</em></a>) – Ending position of the error.</p></li>
+<li><p><strong>details</strong> (<em>str</em>) – Specific details about the parsing error.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="tobj.errors.InterpreterError">
+<span class="property"><span class="k"><span class="pre">exception</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">tobj.errors.</span></span><span class="sig-name descname"><span class="pre">InterpreterError</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pos_start</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#tobj.errors.Position" title="tobj.errors.Position"><span class="pre">Position</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">pos_end</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#tobj.errors.Position" title="tobj.errors.Position"><span class="pre">Position</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">details</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/tobj/errors.html#InterpreterError"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tobj.errors.InterpreterError" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#tobj.errors.TinyObjError" title="tobj.errors.TinyObjError"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TinyObjError</span></code></a></p>
+<p>Interpreter-specific errors, raised during the runtime execution phase.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>pos_start</strong> (<a class="reference internal" href="#tobj.errors.Position" title="tobj.errors.Position"><em>Position</em></a>) – Starting position of the error.</p></li>
+<li><p><strong>pos_end</strong> (<a class="reference internal" href="#tobj.errors.Position" title="tobj.errors.Position"><em>Position</em></a>) – Ending position of the error.</p></li>
+<li><p><strong>details</strong> (<em>str</em>) – Specific details about the runtime error.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../../index.html">TinyObj</a></h1>
+
+
+
+
+
+
+
+
+
+<search id="searchbox" style="display: none" role="search">
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Search"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script><h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorial.html">Tutorial: Getting Started with TinyObj</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../index.html">API Reference</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../index.html">tobj</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="../index.html#submodules">Submodules</a><ul class="current">
+<li class="toctree-l4 current"><a class="current reference internal" href="#">tobj.errors</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../interpreter/index.html">tobj.interpreter</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../lexer/index.html">tobj.lexer</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../main/index.html">tobj.main</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../parser/index.html">tobj.parser</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../../index.html">Documentation overview</a><ul>
+  <li><a href="../../index.html">API Reference</a><ul>
+  <li><a href="../index.html">tobj</a><ul>
+      <li>Previous: <a href="../index.html" title="previous chapter">tobj</a></li>
+      <li>Next: <a href="../interpreter/index.html" title="next chapter">tobj.interpreter</a></li>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &#169;2025, Razka Rizaldi.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 9.0.4</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 1.0.0</a>
+      
+      |
+      <a href="../../../_sources/api/tobj/errors/index.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

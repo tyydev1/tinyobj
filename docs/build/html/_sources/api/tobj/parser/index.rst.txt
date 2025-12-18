@@ -1,0 +1,220 @@
+tobj.parser
+===========
+
+.. py:module:: tobj.parser
+
+.. autoapi-nested-parse::
+
+   The TinyObj Parser
+
+   This module defines the Abstract Syntax Tree (AST) nodes and the Parser class
+   responsible for consuming tokens produced by the Lexer and constructing the AST.
+
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   tobj.parser.ASTNode
+   tobj.parser.ObjectNode
+   tobj.parser.PropertyNode
+   tobj.parser.Parser
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   tobj.parser.main
+
+
+Module Contents
+---------------
+
+.. py:class:: ASTNode(pos_start: tobj.errors.Position, pos_end: tobj.errors.Position)
+
+   Base class for all AST nodes.
+
+   :param pos_start: The starting position in the source code.
+   :type pos_start: Position
+   :param pos_end: The ending position in the source code.
+   :type pos_end: Position
+
+
+   .. py:attribute:: pos_start
+
+
+   .. py:attribute:: pos_end
+
+
+.. py:class:: ObjectNode(path: str, pos_start: tobj.errors.Position, pos_end: tobj.errors.Position)
+
+   Bases: :py:obj:`ASTNode`
+
+
+   Represents an object declaration: *ObjectName.
+
+   :param path: The dot-separated path of the object (e.g., "User" or "User.profile").
+   :type path: str
+
+
+   .. py:attribute:: path
+
+
+   .. py:method:: __repr__() -> str
+
+      Returns a string representation of the node for debugging.
+
+
+
+.. py:class:: PropertyNode(key: str, value, pos_start: tobj.errors.Position, pos_end: tobj.errors.Position)
+
+   Bases: :py:obj:`ASTNode`
+
+
+   Represents a property assignment: >key value or >key followed by a list.
+
+   :param key: The property key.
+   :type key: str
+   :param value: The Python value assigned to the property (str, int, float, bool, None, or List).
+   :type value: Any
+
+
+   .. py:attribute:: key
+
+
+   .. py:attribute:: value
+
+
+   .. py:method:: __repr__() -> str
+
+      Returns a string representation of the node for debugging.
+
+
+
+.. py:class:: Parser(tokens: List[tobj.lexer.Token])
+
+   The TinyObj Parser.
+
+   Consumes a stream of tokens and builds a list of ASTNode objects (ObjectNode and PropertyNode).
+
+   :param tokens: The input list of tokens from the Lexer.
+   :type tokens: List[Token]
+   :ivar pos: The current index in the token list.
+   :vartype pos: int
+   :ivar current_token: The token currently being processed.
+   :vartype current_token: Optional[Token]
+
+
+   .. py:attribute:: tokens
+      :type:  List[tobj.lexer.Token]
+
+
+   .. py:attribute:: pos
+      :type:  int
+      :value: 0
+
+
+
+   .. py:attribute:: current_token
+      :type:  Optional[tobj.lexer.Token]
+
+
+   .. py:method:: advance() -> None
+
+      Move the parser position to the next token.
+
+
+
+   .. py:method:: peek(offset: int = 1) -> Optional[tobj.lexer.Token]
+
+      Look ahead at a future token without advancing the position.
+
+      :param offset: Number of tokens to look ahead. Defaults to 1.
+      :type offset: int
+      :return: The token at the peeked position, or None if past EOF.
+      :rtype: Optional[Token]
+
+
+
+   .. py:method:: expect(token_type: str) -> tobj.lexer.Token
+
+      Consume a token of the expected type.
+
+      If the current token matches the expected type, it is consumed and returned.
+      Otherwise, a ParserError is raised.
+
+      :param token_type: The expected type of the token.
+      :type token_type: str
+      :return: The consumed token.
+      :rtype: Token
+      :raises ParserError: If the token type does not match or if EOF is reached unexpectedly.
+
+
+
+   .. py:method:: skip_newlines() -> None
+
+      Consume and discard all contiguous NEWLINE tokens.
+
+
+
+   .. py:method:: token_to_value(token: tobj.lexer.Token)
+
+      Convert a value token (STRING, NUMBER, BOOLEAN, NOTHING) into its corresponding Python value.
+
+      :param token: The token to convert.
+      :type token: Token
+      :return: The Python representation of the token's value.
+      :rtype: Any
+      :raises ParserError: If the token type is not a valid value type.
+
+
+
+   .. py:method:: parse_object() -> ObjectNode
+
+      Parses an object declaration: *ObjectName.
+
+      :return: The constructed AST node.
+      :rtype: ObjectNode
+
+
+
+   .. py:method:: parse_list_items() -> Tuple[List, tobj.errors.Position]
+
+      Parses list items following a property key (handles both one-line and multi-line lists).
+
+      :return: A tuple containing the list of parsed values and the position of the last parsed item's end.
+      :rtype: Tuple[List, Position]
+
+
+
+   .. py:method:: parse_property() -> PropertyNode
+
+      Parses a property assignment: >key value, >key, or >key followed by a list.
+
+      :return: The constructed AST node.
+      :rtype: PropertyNode
+      :raises ParserError: If a keyword is used as a key, or an unexpected token is found.
+
+
+
+   .. py:method:: parse() -> List[ASTNode]
+
+      Main parsing method.
+
+      Iterates through the tokens and dispatches to object or property parsing methods.
+
+      :return: The complete Abstract Syntax Tree, represented as a list of top-level nodes.
+      :rtype: List[ASTNode]
+      :raises ParserError: If an unexpected token is encountered outside of a valid structure.
+
+
+
+.. py:function:: main()
+
+   Example usage of the Lexer and Parser to demonstrate AST construction.
+
+

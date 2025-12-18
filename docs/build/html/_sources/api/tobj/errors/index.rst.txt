@@ -1,0 +1,205 @@
+tobj.errors
+===========
+
+.. py:module:: tobj.errors
+
+.. autoapi-nested-parse::
+
+   TinyObj's Custom Errors
+
+
+
+Exceptions
+----------
+
+.. autoapisummary::
+
+   tobj.errors.TinyObjError
+   tobj.errors.LexerError
+   tobj.errors.ParserError
+   tobj.errors.InterpreterError
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   tobj.errors.Position
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   tobj.errors.string_with_arrows
+
+
+Module Contents
+---------------
+
+.. py:class:: Position(idx: int, ln: int, col: int, filename: str, text: str)
+
+   Tracks position in source code.
+
+   :param idx: Current index in the source text.
+   :type idx: int
+   :param ln: Current line number (1-indexed).
+   :type ln: int
+   :param col: Current column number (1-indexed).
+   :type col: int
+   :param filename: Name of the source file.
+   :type filename: str
+   :param text: The full source text.
+   :type text: str
+
+
+   .. py:attribute:: idx
+      :type:  int
+
+
+   .. py:attribute:: ln
+      :type:  int
+
+
+   .. py:attribute:: col
+      :type:  int
+
+
+   .. py:attribute:: filename
+      :type:  str
+
+
+   .. py:attribute:: text
+      :type:  str
+
+
+   .. py:method:: advance(current_char: Optional[str] = None) -> Position
+
+      Move position forward one character.
+
+      Updates the index, column, and line based on the current character.
+
+      :param current_char: The character being advanced over.
+      :type current_char: Optional[str]
+      :return: The updated Position object (self).
+      :rtype: Position
+
+
+
+   .. py:method:: copy() -> Position
+
+      Creates a deep copy of the current Position object.
+
+      :return: A new Position object with the same state.
+      :rtype: Position
+
+
+
+.. py:function:: string_with_arrows(text, pos_start, pos_end)
+
+   Generates a string representation of the source code snippet
+   highlighting the error range with carets (^).
+
+   :param text: The full source code text.
+   :type text: str
+   :param pos_start: The starting position of the error.
+   :type pos_start: Position
+   :param pos_end: The ending position of the error.
+   :type pos_end: Position
+   :return: The highlighted source code snippet.
+   :rtype: str
+
+
+.. py:exception:: TinyObjError(pos_start: Position, pos_end: Position, error_name: str, details: str)
+
+   Bases: :py:obj:`Exception`
+
+
+   Base error class for TinyObj.
+
+   All custom errors in the TinyObj language should inherit from this class.
+
+   :param pos_start: Starting position of the error in source code.
+   :type pos_start: Position
+   :param pos_end: Ending position of the error in source code.
+   :type pos_end: Position
+   :param error_name: The name of the error (e.g., "LexerError").
+   :type error_name: str
+   :param details: Specific details about the error.
+   :type details: str
+
+
+   .. py:attribute:: pos_start
+      :type:  Position
+
+
+   .. py:attribute:: pos_end
+      :type:  Position
+
+
+   .. py:attribute:: error_name
+      :type:  str
+
+
+   .. py:attribute:: details
+      :type:  str
+
+
+   .. py:method:: __str__() -> str
+
+      Generates a user-friendly string representation of the error,
+      including the error type, details, file, line number, and a highlighted
+      snippet of the source code.
+
+      :return: The formatted error message.
+      :rtype: str
+
+
+
+.. py:exception:: LexerError(pos_start: Position, pos_end: Position, details: str)
+
+   Bases: :py:obj:`TinyObjError`
+
+
+   Lexer-specific errors, raised during the tokenization phase.
+
+   :param pos_start: Starting position of the error.
+   :type pos_start: Position
+   :param pos_end: Ending position of the error.
+   :type pos_end: Position
+   :param details: Specific details about the lexing error.
+   :type details: str
+
+
+.. py:exception:: ParserError(pos_start: Position, pos_end: Position, details: str)
+
+   Bases: :py:obj:`TinyObjError`
+
+
+   Parser-specific errors, raised during the syntax analysis (AST construction) phase.
+
+   :param pos_start: Starting position of the error.
+   :type pos_start: Position
+   :param pos_end: Ending position of the error.
+   :type pos_end: Position
+   :param details: Specific details about the parsing error.
+   :type details: str
+
+
+.. py:exception:: InterpreterError(pos_start: Position, pos_end: Position, details: str)
+
+   Bases: :py:obj:`TinyObjError`
+
+
+   Interpreter-specific errors, raised during the runtime execution phase.
+
+   :param pos_start: Starting position of the error.
+   :type pos_start: Position
+   :param pos_end: Ending position of the error.
+   :type pos_end: Position
+   :param details: Specific details about the runtime error.
+   :type details: str
+
+
