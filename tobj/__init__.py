@@ -1,5 +1,5 @@
 """
-TinyObj v0.2.1,
+TinyObj v0.2.2,
 a tiny object format for freedom.
 """
 from typing import Any, Dict, Optional, List
@@ -131,5 +131,5 @@ __all__ = [
     "LexerError", "ParserError", "InterpreterError",
 ]
 
-__version__ = "0.2.1"
+__version__ = "0.2.2"
 __author__ = "Razka Rizaldi"
